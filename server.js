@@ -12,7 +12,8 @@ const routes = require('./routes/index.js')
 
 //UTILIZATION IOF EXPRESS
 const allowedOrigins = [
-  'mintwis3.netlify.app'
+  'mintwis3.netlify.app',
+  'http://localhost:5173'
 ];
 
 const corsOptions = {
@@ -44,4 +45,5 @@ app.listen(process.env.PORT, () => {
     console.log(`Server is runnimg on Port ${process.env.PORT}`)
 
 })
+
 

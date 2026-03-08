@@ -13,6 +13,7 @@ const routes = require('./routes/index.js')
 //UTILIZATION IOF EXPRESS
 const allowedOrigins = [
   'mintwis3.netlify.app',
+  'https://prsnl-mintwise-front.vercel.app',
   'http://localhost:5173'
 ];
 
@@ -45,5 +46,6 @@ app.listen(process.env.PORT, () => {
     console.log(`Server is runnimg on Port ${process.env.PORT}`)
 
 })
+
 
 

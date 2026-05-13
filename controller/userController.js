@@ -46,17 +46,21 @@ exports.getItemById = (req,res) => {
 };
 
 //update the item details by item id
-exports.updateItemById = (req,res) => {
+exports.updateItemById = (req, res) => {
     const parts_id = req.params.parts_id;
-    const {item_name, brand, compatibility, capital, price, stocks} = req.body;
-    connection.query('UPDATE parts SET item_name=?, brand=?, compatibility=?, capital=?, price=?, stocks=? WHERE parts_id=?', [item_name, brand, compatibility, capital, price, stocks, parts_id], (err, result) => {
-        if (err) throw err;
-        if(result.affectedRows>0)
-            res.json({message:'Item Updated Successfully'});
-        else
-            res.status(404).json({message:'Item not found'});   
-    });
-}
+    const { item_name, brand, compatibility, capital, price, stocks } = req.body;
+    connection.query(
+        'UPDATE parts SET item_name=?, brand=?, compatibility=?, capital=?, price=?, stocks=? WHERE parts_id=?',
+        [item_name, brand, compatibility, capital, price, stocks, parts_id], // ← capital added
+        (err, result) => {
+            if (err) throw err;
+            if (result.affectedRows > 0)
+                res.json({ message: 'Item Updated Successfully' });
+            else
+                res.status(404).json({ message: 'Item not found' });
+        }
+    );
+};
 
 //delete the item by item id
 exports.deleteItemById = (req,res) => {
@@ -71,14 +75,17 @@ exports.deleteItemById = (req,res) => {
 };
 
 //add new item
-exports.addItem = (req,res) => {
-    const {item_name, brand, compatibility, capital, price, stocks, cat_id} = req.body;
-    connection.query('INSERT INTO parts (item_name, brand, compatibility, capital, price, stocks, cat_id) VALUES (?,?,?,?,?,?,?)', [item_name, brand, compatibility, capital, price, stocks, cat_id], (err,result) => {
-        if (err) throw err;
-        res.json({message:'Item Added Successfully', itemId: result.insertId});
-    });
-}
-
+exports.addItem = (req, res) => {
+    const { item_name, brand, compatibility, capital, price, stocks, cat_id } = req.body;
+    connection.query(
+        'INSERT INTO parts (item_name, brand, compatibility, capital, price, stocks, cat_id) VALUES (?,?,?,?,?,?,?)',
+        [item_name, brand, compatibility, capital, price, stocks, cat_id], // ← capital added
+        (err, result) => {
+            if (err) throw err;
+            res.json({ message: 'Item Added Successfully', itemId: result.insertId });
+        }
+    );
+};
 //add new category
 exports.addCategory = (req,res) => {
     const {cat_name} = req.body;

@@ -51,9 +51,9 @@ exports.updateItemById = (req, res) => {
     const { item_name, brand, compatibility, capital, price, stocks } = req.body;
     connection.query(
         'UPDATE parts SET item_name=?, brand=?, compatibility=?, capital=?, price=?, stocks=? WHERE parts_id=?',
-        [item_name, brand, compatibility, capital, price, stocks, parts_id], // ← capital added
+        [item_name, brand, compatibility, capital, price, stocks, parts_id],
         (err, result) => {
-            if (err) throw err;
+            if (err) return res.status(500).json({ message: err.message }); // ← hindi throw
             if (result.affectedRows > 0)
                 res.json({ message: 'Item Updated Successfully' });
             else
@@ -79,9 +79,9 @@ exports.addItem = (req, res) => {
     const { item_name, brand, compatibility, capital, price, stocks, cat_id } = req.body;
     connection.query(
         'INSERT INTO parts (item_name, brand, compatibility, capital, price, stocks, cat_id) VALUES (?,?,?,?,?,?,?)',
-        [item_name, brand, compatibility, capital, price, stocks, cat_id], // ← capital added
+        [item_name, brand, compatibility, capital, price, stocks, cat_id],
         (err, result) => {
-            if (err) throw err;
+            if (err) return res.status(500).json({ message: err.message }); 
             res.json({ message: 'Item Added Successfully', itemId: result.insertId });
         }
     );

@@ -49,7 +49,7 @@ exports.getItemById = (req,res) => {
 exports.updateItemById = (req,res) => {
     const parts_id = req.params.parts_id;
     const {item_name, brand, compatibility, capital, price, stocks} = req.body;
-    connection.query('UPDATE parts SET item_name=?, brand=?, compatibility=?, capital=?, price=?, stocks=? WHERE parts_id=?', [item_name, brand, compatibility, price, stocks, parts_id], (err, result) => {
+    connection.query('UPDATE parts SET item_name=?, brand=?, compatibility=?, capital=?, price=?, stocks=? WHERE parts_id=?', [item_name, brand, compatibility, capital, price, stocks, parts_id], (err, result) => {
         if (err) throw err;
         if(result.affectedRows>0)
             res.json({message:'Item Updated Successfully'});
@@ -73,7 +73,7 @@ exports.deleteItemById = (req,res) => {
 //add new item
 exports.addItem = (req,res) => {
     const {item_name, brand, compatibility, capital, price, stocks, cat_id} = req.body;
-    connection.query('INSERT INTO parts (item_name, brand, compatibility, capital, price, stocks, cat_id) VALUES (?,?,?,?,?,?,?)', [item_name, brand, compatibility, price, stocks, cat_id], (err,result) => {
+    connection.query('INSERT INTO parts (item_name, brand, compatibility, capital, price, stocks, cat_id) VALUES (?,?,?,?,?,?,?)', [item_name, brand, compatibility, capital, price, stocks, cat_id], (err,result) => {
         if (err) throw err;
         res.json({message:'Item Added Successfully', itemId: result.insertId});
     });
